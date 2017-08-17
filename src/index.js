@@ -1,14 +1,23 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
+import App from "./components/App";
+import { Provider } from "react-redux";
+import React from "react";
+import ReactDOM from "react-dom";
+import store from "./store";
+import { Route, Switch, Router } from "react-router-dom";
+import createHashHistory from "history/createHashHistory";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
-class App extends React.Component {
-  render() {
-    return (
-      <h1>Hello, World!</h1>
-    );
-  }
-}
+const history = createHashHistory();
 
-ReactDOM.render((
-  <App />
-), document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/login" component={Login} />
+      </Switch>
+    </Router>
+  </Provider>,
+  document.getElementById("root")
+);
